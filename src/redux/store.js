@@ -11,6 +11,5 @@ const store = createStore(
 );
 
 export {
-  store,
-  persistor,
+  store
 };

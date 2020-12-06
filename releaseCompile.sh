@@ -10,7 +10,7 @@ cd ..
 rm -rf ./apkOutput/release
 mkdir -p ./apkOutput/release
 cp -r ./android/app/build/outputs/apk/release/. ./apkOutput/release
-rename "s/app/MasterTukarTambah/g" ./apkOutput/release/*.apk
+rename "s/app/RnSimpleChallengeFlip/g" ./apkOutput/release/*.apk
 
 # If you plan to release, delete the 'drawable' folders, they create problem while producing .apk for release.
 rm -rf ./android/app/src/main/res/drawable-*

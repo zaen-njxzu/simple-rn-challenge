@@ -13,7 +13,7 @@ cd ..
 rm -rf ./apkOutput/debug
 mkdir -p ./apkOutput/debug
 cp -r ./android/app/build/outputs/apk/debug/. ./apkOutput/debug
-rename "s/app/MasterTukarTambah/g" ./apkOutput/debug/*.apk
+rename "s/app/RnSimpleChallengeFlip/g" ./apkOutput/debug/*.apk
 
 # If you plan to release, delete the 'drawable' folders, they create problem while producing .apk for release.
 rm -rf ./android/app/src/main/res/drawable-*
