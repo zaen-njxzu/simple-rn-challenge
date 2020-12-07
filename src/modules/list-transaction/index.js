@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
 import NavLC from '../../components/navigation-life-cycle';
 import SearchBar from '../../components/ui/search-bar';
-import { BACKGROUND_COLOR } from '../../constants/colors';
+import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../../constants/colors';
 import { FindSorted } from '../../constants/enum/find-sorted';
 import screens from '../../navigations/screens';
 import TransactionList from './components/transaction-list';
@@ -25,12 +25,17 @@ class ListTransaction extends Component {
 
     componentDidMount() {
         this.didFocus = NavLC.onSetDidFocus(this.props.navigation, async () => {
-            await this.fetchListTransaction();
+            if(this.state.originalData.length == 0) await this.fetchListTransaction(); //Fetch data on RN Navigation Life Cycle
         })
+    }
+
+    componentWillUnmount() {
+        if(this.didFocus) this.didFocus.remove();
     }
 
     fetchListTransaction = async () => {
         try {
+            // Do simple fetch
             let response = await fetch('https://nextar.flip.id/frontend-test');
             let json = await response.json();
             let arrOfData = Object.values(json);
@@ -40,12 +45,9 @@ class ListTransaction extends Component {
                 sortedData: arrOfData
             })
         } catch (error) {
+            this.setState({originalData: [{}]}); //Simple error handling to hide loading indicator
             console.error(error);
         }
-    }
-
-    componentWillUnmount() {
-        if(this.didFocus) this.didFocus.remove();
     }
 
     onSortData = (sortType) => {
@@ -89,6 +91,7 @@ class ListTransaction extends Component {
                     <SearchBar 
                         onFindByText={this.onFindByText} 
                         onSortBy={this.onSortData} />
+                    {this.state.originalData.length == 0 ? <ActivityIndicator size="large" color={PRIMARY_COLOR} /> : null }
                     <TransactionList data={this.state.sortedData} onSelectTransaction={this.onSelectTransaction} />
                 </View>
             </TouchableWithoutFeedback>
@@ -97,5 +100,5 @@ class ListTransaction extends Component {
 
 }
 
-
+// I don't use Redux because, there is no important state to share globally. Use Redux for complexity and cleanliness
 export default ListTransaction;

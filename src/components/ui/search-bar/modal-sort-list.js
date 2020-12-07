@@ -9,14 +9,17 @@ const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+    },
+    dimBackground: {
+        backgroundColor: "rgba(0,0,0,0.5)"
     },
     modalView: {
         width: "90%",
         margin: 20,
         backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
+        borderRadius: 10,
+        padding: 20,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -69,11 +72,11 @@ const ModalSortList = ({
     return (
         <View style={styles.centeredView}>
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={modalVisible}
             >
-                <View style={styles.centeredView}>
+                <View style={{...styles.centeredView, ...styles.dimBackground}}>
                     <View style={styles.modalView}>
                         <FlatList 
                             data={ListOfSortData}

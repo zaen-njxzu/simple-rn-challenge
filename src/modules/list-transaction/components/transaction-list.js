@@ -1,8 +1,26 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import SideLineCardView from '../../../components/ui/side-line-card-view';
 import TextCustom from '../../../components/ui/text';
 import { convertToRupiahText, getMonthId } from '../../../services/data-services';
+import InfoText from './info-text';
+
+const styles = StyleSheet.create({
+    containerCardView: {
+        marginTop: 15
+    },
+    contentContainer: {
+        flexDirection: "row", 
+        marginVertical: 10, 
+        paddingHorizontal: 12
+    },
+    leftContent: {
+        marginRight: "auto"
+    },
+    rightContent: {
+        justifyContent: "center"
+    }
+})
 
 const TransactionList = ({
     data = [],
@@ -25,11 +43,16 @@ const TransactionList = ({
         };
 
         return (
-            <SideLineCardView sideType={newItem.status} style={{marginTop: 15}} onPress={() => { onSelectTransaction(newItem) }}>
-                <View style={{marginLeft: 10, marginVertical: 10}}>
-                    <TextCustom bold>{newItem.sender_bank+" -> "+newItem.beneficiary_bank}</TextCustom>
-                    <TextCustom semibold>{newItem.beneficiary_name}</TextCustom>
-                    <TextCustom>{newItem.amount}<TextCustom bold h4>{" . "}</TextCustom>{newItem.created_at}</TextCustom>
+            <SideLineCardView sideType={newItem.status} style={{...styles.containerCardView}} onPress={() => { onSelectTransaction(newItem) }}>
+                <View style={{...styles.contentContainer}}>
+                    <View style={{...styles.leftContent}}>
+                        <TextCustom bold>{newItem.sender_bank+" -> "+newItem.beneficiary_bank}</TextCustom>
+                        <TextCustom semibold>{newItem.beneficiary_name}</TextCustom>
+                        <TextCustom>{newItem.amount}<TextCustom bold h4>{" . "}</TextCustom>{newItem.created_at}</TextCustom>
+                    </View>
+                    <View style={{...styles.rightContent}}>
+                        <InfoText status={newItem.status} />
+                    </View>
                 </View>
             </SideLineCardView>
         );

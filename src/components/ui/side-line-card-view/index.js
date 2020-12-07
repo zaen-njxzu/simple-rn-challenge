@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   side: {
     backgroundColor: PRIMARY_COLOR,
     height: "100%",
-    width: 5,
+    width: 6,
     position: "absolute",
     left: 0,
     top: 0,
