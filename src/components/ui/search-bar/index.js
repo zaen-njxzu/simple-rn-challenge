@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { PRIMARY_COLOR } from '../../../constants/colors';
 import { FindSorted } from '../../../constants/enum/find-sorted';
-import { ICON_SEARCH } from '../../../images';
+import { ICON_CHEVRON_BOTTOM, ICON_SEARCH } from '../../../images';
 import CardView from '../card-view';
 import TextCustom from '../text';
 import { ListOfSortData } from './constants';
@@ -25,11 +25,13 @@ const styles = StyleSheet.create({
         marginHorizontal: 5
     },
     customText: {
-        color: PRIMARY_COLOR
+        color: PRIMARY_COLOR,
+        marginRight: 10
     },
     rightButtonSort: {
         marginLeft: "auto",
-        marginRight: 5
+        marginRight: 5,
+        flexDirection: "row"
     }
 });
 
@@ -76,6 +78,7 @@ const SearchBar = ({
                     <TextCustom bold h6 style={{...styles.customText}}>
                         {getSortName()}
                     </TextCustom>
+                    <Image source={ICON_CHEVRON_BOTTOM} resizeMode="contain"/>
                 </TouchableOpacity>
             </CardView>
             <ModalSortList modalVisible={modalVisible} selectedId={selectedId} onChooseSortBy={onChooseSort} />
